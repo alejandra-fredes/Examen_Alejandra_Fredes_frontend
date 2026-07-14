@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programación Frontend</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="estilos.css">
+</head>
+
+<body>
+
+    <div id="app">
+
+        <!-- Barra de navegación -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand fw-bold" href="#">
+                    Programación Frontend
+                </a>
+                <button class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#menu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="menu">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a href="#"
+                               class="nav-link"
+                               @click.prevent="pagina='calificaciones'">
+                                Cálculo de calificaciones
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#"
+                               class="nav-link"
+                               @click.prevent="pagina='registro'">
+                                Formulario de Registro
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="container mt-5">
+
+       
+            <!-- CALCULO DE CALIFICACIONES              -->
+           
+            <section v-if="pagina==='calificaciones'">
+
+                <div class="card sombra">
+                    <div class="card-body">
+
+                        <h2 class="text-center mb-4">
+                            Cálculo de calificaciones
+                        </h2>
+
+                        <!-- Nota 1 -->
+                        <div class="mb-3">
+                            <label class="form-label">Nota 1</label>
+                            <input type="number" 
+                                   class="form-control" 
+                                   v-model="nota1" 
+                                   min="10" 
+                                   max="70">
+                            <small class="text-danger" v-if="errorNota1">
+                                {{ errorNota1 }}
+                            </small>
+                        </div>
+
+                        <!-- Nota 2 -->
+                        <div class="mb-3">
+                            <label class="form-label">Nota 2</label>
+                            <input type="number" 
+                                   class="form-control" 
+                                   v-model="nota2" 
+                                   min="10" 
+                                   max="70">
+                            <small class="text-danger" v-if="errorNota2">
+                                {{ errorNota2 }}
+                            </small>
+                        </div>
+
+                        <!-- Nota 3 -->
+                        <div class="mb-3">
+                            <label class="form-label">Nota 3</label>
+                            <input type="number" 
+                                   class="form-control" 
+                                   v-model="nota3" 
+                                   min="10" 
+                                   max="70">
+                            <small class="text-danger" v-if="errorNota3">
+                                {{ errorNota3 }}
+                            </small>
+                        </div>
+
+                        <!-- Asistencia % -->
+                        <div class="mb-4">
+                            <label class="form-label">Asistencia %</label>
+                            <input type="number" 
+                                   class="form-control" 
+                                   v-model="asistencia" 
+                                   min="0" 
+                                   max="100">
+                            <small class="text-danger" v-if="errorAsistencia">
+                                {{ errorAsistencia }}
+                            </small>
+                        </div>
+
+                        <div class="text-center">
+                            <button class="btn btn-primary" @click="calcular">
+                                Calcular
+                            </button>
+                        </div>
+
+                        <!-- Sección de Resultados Dinámicos -->
+                        <div v-if="promedio || mensaje">
+                            <hr>
+                            <h5 v-if="promedio">
+                                El promedio es: <span class="texto-promedio">{{ promedio }}</span>
+                            </h5>
+                            <h5 v-if="mensaje">
+                                Tu estado es: 
+                                <span :class="mensaje === 'Aprobado' ? 'texto-aprobado' : 'texto-reprobado'">
+                                    {{ mensaje }}
+                                </span>
+                            </h5>
+                        </div>
+
+                    </div>
+                </div>
+
+            </section>
+
+            
+            <!-- FORMULARIO DE REGISTRO                 -->
+        
+            <section v-if="pagina==='registro'">
+
+                <div class="card sombra">
+                    <div class="card-body">
+
+                        <h2 class="text-center mb-4">
+                            Formulario de Registro
+                        </h2>
+
+                        <!-- Nombre -->
+                        <div class="mb-3">
+                            <label class="form-label">Nombre</label>
+                            <input type="text" class="form-control" v-model="nombre">
+                            <small class="text-danger" v-if="errorNombre">
+                                {{ errorNombre }}
+                            </small>
+                        </div>
+
+                        <!-- Correo -->
+                        <div class="mb-3">
+                            <label class="form-label">Correo</label>
+                            <input type="email" class="form-control" v-model="correo">
+                            <small class="text-danger" v-if="errorCorreo">
+                                {{ errorCorreo }}
+                            </small>
+                        </div>
+
+                        <!-- Contraseña -->
+                        <div class="mb-3">
+                            <label class="form-label">Contraseña</label>
+                            <input type="password" class="form-control" v-model="password">
+                            <small class="text-danger" v-if="errorPassword">
+                                {{ errorPassword }}
+                            </small>
+                        </div>
+
+                        <!-- Repetir contraseña -->
+                        <div class="mb-4">
+                            <label class="form-label">Repetir contraseña</label>
+                            <input type="password" class="form-control" v-model="repetir">
+                            <small class="text-danger" v-if="errorRepetir">
+                                {{ errorRepetir }}
+                            </small>
+                        </div>
+
+                        <div class="text-center">
+                            <button class="btn btn-success" @click="registrar">
+                                Enviar
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+    <!-- Vue -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <!-- JavaScript -->
+    <script src="app.js"></script>
+
+    <!-- Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
