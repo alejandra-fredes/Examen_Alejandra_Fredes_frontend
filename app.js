@@ -6,9 +6,7 @@ createApp({
             // Control de pestañas
             pagina: "calificaciones",
 
-            // ==========================
-            // CALIFICACIONES
-            // ==========================
+            //  CALIFICACIONES 
             nota1: "",
             nota2: "",
             nota3: "",
@@ -22,9 +20,8 @@ createApp({
             errorNota3: "",
             errorAsistencia: "",
 
-            // ==========================
             // REGISTRO
-            // ==========================
+            
             nombre: "",
             correo: "",
             password: "",
@@ -39,9 +36,9 @@ createApp({
 
     methods: {
 
-        // =================================
+        
         // CALCULAR NOTAS
-        // =================================
+        
         calcular() {
 
             let valido = true;
@@ -89,9 +86,9 @@ createApp({
             }
         },
 
-        // =================================
+        
         // REGISTRO
-        // =================================
+        
         registrar() {
 
             let valido = true;
@@ -143,9 +140,9 @@ createApp({
     },
         watch: {
 
-        // ==========================
+        
         // NOTA 1
-        // ==========================
+        
         nota1(valor) {
             if (valor === "") {
                 this.errorNota1 = "";
@@ -156,9 +153,9 @@ createApp({
             }
         },
 
-        // ==========================
+        
         // NOTA 2
-        // ==========================
+        
         nota2(valor) {
             if (valor === "") {
                 this.errorNota2 = "";
@@ -169,9 +166,9 @@ createApp({
             }
         },
 
-        // ==========================
+        
         // NOTA 3
-        // ==========================
+        
         nota3(valor) {
             if (valor === "") {
                 this.errorNota3 = "";
@@ -182,9 +179,9 @@ createApp({
             }
         },
 
-        // ==========================
+        
         // ASISTENCIA
-        // ==========================
+        
         asistencia(valor) {
             if (valor === "") {
                 this.errorAsistencia = "";
@@ -195,9 +192,9 @@ createApp({
             }
         },
 
-        // ==========================
+        
         // NOMBRE
-        // ==========================
+        
         nombre(valor) {
             if (valor.trim() === "") {
                 this.errorNombre = "El campo nombre es requerido";
@@ -206,9 +203,9 @@ createApp({
             }
         },
 
-        // ==========================
+        
         // CORREO
-        // ==========================
+        
         correo(valor) {
 
             const formatoCorreo = /^[a-zA-Z0-9._%+-]+@[a-zA-Z]+\.[a-zA-Z]{2,}$/;
@@ -222,9 +219,9 @@ createApp({
             }
         },
 
-        // ==========================
+        
         // CONTRASEÑA
-        // ==========================
+        
         password(valor) {
 
             if (valor === "") {
@@ -242,9 +239,9 @@ createApp({
             }
         },
 
-        // ==========================
+        
         // REPETIR CONTRASEÑA
-        // ==========================
+        
         repetir(valor) {
 
             if (valor === "") {
